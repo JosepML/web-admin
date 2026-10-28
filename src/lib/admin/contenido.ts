@@ -9,6 +9,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { revalidarContenido } from "@/lib/datos/revalidar";
+import { dispararDespliegueWeb } from "./desplegar";
 import type { NombreTabla } from "@/lib/datos/cliente";
 import { exigirAdmin } from "./sesion";
 import { TABLAS_CONTENIDO, type Resultado, type TablaContenido } from "./tipos";
@@ -133,6 +134,7 @@ export async function publicar(tabla: TablaContenido, id: string): Promise<Resul
     const s = await db();
     lanzar((await s.rpc("publicar", { p_tabla: tabla, p_id: id })).error);
     await revalidarContenido(afectadas(tabla));
+    void dispararDespliegueWeb();
     return null;
   });
 }
@@ -166,6 +168,7 @@ export async function crear(tabla: TablaContenido, valores: Generica): Promise<R
       .single();
     lanzar(error);
     await revalidarContenido(afectadas(tabla));
+    void dispararDespliegueWeb();
     return { id: data!.id as string };
   });
 }
@@ -203,6 +206,7 @@ export async function duplicar(tabla: TablaContenido, id: string): Promise<Resul
       lanzar((await s.from("borradores").insert({ tabla, fila_id: nuevo, datos: extrasCopia })).error);
     }
     await revalidarContenido(afectadas(tabla));
+    void dispararDespliegueWeb();
     return { id: nuevo };
   });
 }
@@ -225,11 +229,13 @@ export async function cambiarVisible(tabla: TablaContenido, id: string, visible:
       if (!data?.publicado_en) {
         lanzar((await s.rpc("publicar", { p_tabla: tabla, p_id: id })).error);
         await revalidarContenido(afectadas(tabla));
+    void dispararDespliegueWeb();
         return null;
       }
     }
     lanzar((await s.from(tabla).update({ estado: visible ? "publicado" : "borrador" }).eq("id", id)).error);
     await revalidarContenido(afectadas(tabla));
+    void dispararDespliegueWeb();
     return null;
   });
 }
@@ -242,6 +248,7 @@ export async function reordenar(tabla: TablaContenido, ids: string[]): Promise<R
     const resultados = await Promise.all(ids.map((id, orden) => s.from(tabla).update({ orden }).eq("id", id)));
     lanzar(resultados.find((r) => r.error)?.error ?? null);
     await revalidarContenido(afectadas(tabla));
+    void dispararDespliegueWeb();
     return null;
   });
 }
@@ -274,6 +281,7 @@ export async function cambiarAlInstante(tabla: TablaContenido, cambios: { id: st
     const resultados = await Promise.all(cambios.map((c) => s.from(tabla).update({ [c.campo]: c.valor }).eq("id", c.id)));
     lanzar(resultados.find((r) => r.error)?.error ?? null);
     await revalidarContenido(afectadas(tabla));
+    void dispararDespliegueWeb();
     return null;
   });
 }
@@ -287,6 +295,7 @@ export async function borrar(tabla: TablaContenido, id: string): Promise<Resulta
     if (data?.estado === "publicado") throw new Error("Primero ocúltalo; después ya se puede borrar.");
     lanzar((await s.from(tabla).delete().eq("id", id)).error);
     await revalidarContenido(afectadas(tabla));
+    void dispararDespliegueWeb();
     return null;
   });
 }
