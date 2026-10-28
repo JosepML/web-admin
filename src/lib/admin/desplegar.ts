@@ -14,7 +14,7 @@ export async function dispararDespliegueWeb(): Promise<{ ok: boolean; mensaje?: 
   }
 
   try {
-    const res = await fetch("https://api.github.com/repos/JosepML/JosepML/dispatches", {
+    const res = await fetch("https://api.github.com/repos/JosepML/web-publica/dispatches", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
