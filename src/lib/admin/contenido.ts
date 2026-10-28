@@ -266,6 +266,7 @@ export async function ordenarPorServicio(servicioId: string, proyectoIds: string
     );
     lanzar(resultados.find((r) => r.error)?.error ?? null);
     await revalidarContenido(["proyectos", "proyecto_servicios"]);
+    void dispararDespliegueWeb();
     return null;
   });
 }

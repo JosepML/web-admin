@@ -7,9 +7,10 @@
 export async function dispararDespliegueWeb(): Promise<{ ok: boolean; mensaje?: string }> {
   const token = process.env.GITHUB_DISPATCH_TOKEN?.trim();
   if (!token) {
+    console.warn("Falta GITHUB_DISPATCH_TOKEN en las variables de entorno de Vercel.");
     return {
       ok: false,
-      mensaje: "Falta GITHUB_DISPATCH_TOKEN en .env.local. Puedes generar un token de acceso personal en GitHub.",
+      mensaje: "Guardado en Supabase, pero falta configurar GITHUB_DISPATCH_TOKEN en Vercel para compilar GitHub Pages.",
     };
   }
 
@@ -25,7 +26,7 @@ export async function dispararDespliegueWeb(): Promise<{ ok: boolean; mensaje?: 
     });
 
     if (res.ok || res.status === 204) {
-      return { ok: true, mensaje: "Despliegue solicitado. La web pública estará actualizada en unos 2 minutos." };
+      return { ok: true, mensaje: "Publicado en Supabase y compilando web pública (lista en ~2 min)." };
     }
 
     return { ok: false, mensaje: `GitHub respondió con código ${res.status}. Comprueba los permisos del token.` };
