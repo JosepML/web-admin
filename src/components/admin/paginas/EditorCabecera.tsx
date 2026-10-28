@@ -8,7 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Campos } from "@/components/admin/campos/Campos";
-import type { Campo } from "@/components/admin/campos/tipos";
+import { ProveedorMedios } from "@/components/admin/campos/medios";
+import { uuidsEn, type Campo } from "@/components/admin/campos/tipos";
 import { useDialogos } from "@/components/admin/Dialogos";
 import { textoGuardado, useAutoguardado } from "@/components/admin/useAutoguardado";
 import { Icono } from "@/components/Iconos";
@@ -62,7 +63,8 @@ export function EditorCabecera({ id, slug, ruta, inicial }: { id: string; slug: 
   const hayCambios = Object.keys(cambios).length > 0;
 
   // La cabecera es el primer bloque de la página
-  const cabecera = bloques[0]?.datos ?? {};
+  const cabecera = useMemo(() => bloques[0]?.datos ?? {}, [bloques]);
+  const ids = useMemo(() => [...uuidsEn(cabecera)], [cabecera]);
   const cambiarCabecera = (clave: string, valor: unknown) =>
     setBloques((l) => (l.length ? [{ ...l[0], datos: { ...l[0].datos, [clave]: valor } }, ...l.slice(1)] : [{ id: crypto.randomUUID(), tipo: "texto", visible: true, datos: { [clave]: valor } }]));
 
@@ -92,6 +94,7 @@ export function EditorCabecera({ id, slug, ruta, inicial }: { id: string; slug: 
   };
 
   return (
+    <ProveedorMedios ids={ids}>
     <div className="mx-auto max-w-3xl">
       <div className="sticky top-16 z-30 -mx-2 mb-6 lg:top-4">
         <div className="cristal cristal-fuerte flex flex-wrap items-center gap-x-4 gap-y-2 rounded-[28px] px-5 py-3.5">
@@ -137,5 +140,6 @@ export function EditorCabecera({ id, slug, ruta, inicial }: { id: string; slug: 
         </div>
       </section>
     </div>
+    </ProveedorMedios>
   );
 }

@@ -82,9 +82,10 @@
    Instrument Serif cursiva, solo para la palabra de acento y la palabra que rota en la portada). Por eso se
    declaran en el elemento que lleva el tema, que está dentro de ese contenedor: en :root aún no existen y
    la variable quedaría vacía */
+:root,
 [data-tema] {
-  --jm-letra: var(--font-base), var(--font-sans-face), system-ui, sans-serif;
-  --jm-letra-acento: var(--font-acento), Georgia, serif;
+  --jm-letra: var(--font-base), "Montserrat", var(--font-sans-face), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --jm-letra-acento: var(--font-acento), "Instrument Serif", Georgia, serif;
 }
 
 /* Lo que no cambia con el tema */

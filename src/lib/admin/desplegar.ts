@@ -5,7 +5,7 @@
 // Usa la API oficial de GitHub: repository_dispatch -> event_type: "publicar_contenido".
 
 export async function dispararDespliegueWeb(): Promise<{ ok: boolean; mensaje?: string }> {
-  const token = process.env.GITHUB_DISPATCH_TOKEN;
+  const token = process.env.GITHUB_DISPATCH_TOKEN?.trim();
   if (!token) {
     return {
       ok: false,

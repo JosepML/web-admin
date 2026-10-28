@@ -11,7 +11,8 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDialogos } from "@/components/admin/Dialogos";
 import { Campos, ProveedorOpciones } from "@/components/admin/campos/Campos";
-import type { OpcionesFormulario } from "@/components/admin/campos/tipos";
+import { ProveedorMedios } from "@/components/admin/campos/medios";
+import { uuidsEn, type OpcionesFormulario } from "@/components/admin/campos/tipos";
 import { Insignia } from "@/components/admin/ListaContenido";
 import { Historial } from "@/components/admin/paginas/Historial";
 import { textoGuardado, useAutoguardado } from "@/components/admin/useAutoguardado";
@@ -122,6 +123,7 @@ export function OrdenSecciones({ id, titulo, ruta, inicial, opciones }: { id: st
   const [cambiosIniciales, setCambiosIniciales] = useState<Record<string, unknown>>(() => inicial.borrador ?? {});
   const guardado = useAutoguardado("paginas", id, cambios, cambiosIniciales);
   const hayCambios = Object.keys(cambios).length > 0;
+  const ids = useMemo(() => [...uuidsEn(bloques)], [bloques]);
 
   const porId = new Map(publicados.map((b) => [b.id, b]));
   // Cambios de la página que no son de las secciones (título, SEO): al publicar salen también
@@ -280,28 +282,30 @@ export function OrdenSecciones({ id, titulo, ruta, inicial, opciones }: { id: st
         </p>
       )}
 
-      <ProveedorOpciones opciones={opciones}>
-        <Reorder.Group axis="y" values={bloques} onReorder={(lista) => aplicar(() => lista, "reordenar")} className="mt-6 flex flex-col gap-2">
-          {bloques.map((b, i) => (
-            <Fila
-              key={b.id}
-              b={b}
-              n={i + 1}
-              abierto={abierto === b.id}
-              alAbrir={() => setAbierto(abierto === b.id ? null : b.id)}
-              alCambiar={(clave, valor) => cambiarDato(b.id, clave, valor)}
-              nueva={!porId.has(b.id)}
-              primera={i === 0}
-              ultima={i === bloques.length - 1}
-              alSubir={() => mover(i, -1)}
-              alBajar={() => mover(i, 1)}
-              alVisible={() => alternar(b.id)}
-              alDuplicar={() => duplicar(b.id)}
-              alBorrar={() => borrar(b.id)}
-            />
-          ))}
-        </Reorder.Group>
-      </ProveedorOpciones>
+      <ProveedorMedios ids={ids}>
+        <ProveedorOpciones opciones={opciones}>
+          <Reorder.Group axis="y" values={bloques} onReorder={(lista) => aplicar(() => lista, "reordenar")} className="mt-6 flex flex-col gap-2">
+            {bloques.map((b, i) => (
+              <Fila
+                key={b.id}
+                b={b}
+                n={i + 1}
+                abierto={abierto === b.id}
+                alAbrir={() => setAbierto(abierto === b.id ? null : b.id)}
+                alCambiar={(clave, valor) => cambiarDato(b.id, clave, valor)}
+                nueva={!porId.has(b.id)}
+                primera={i === 0}
+                ultima={i === bloques.length - 1}
+                alSubir={() => mover(i, -1)}
+                alBajar={() => mover(i, 1)}
+                alVisible={() => alternar(b.id)}
+                alDuplicar={() => duplicar(b.id)}
+                alBorrar={() => borrar(b.id)}
+              />
+            ))}
+          </Reorder.Group>
+        </ProveedorOpciones>
+      </ProveedorMedios>
 
       <AnimatePresence initial={false}>
         {catalogo && (

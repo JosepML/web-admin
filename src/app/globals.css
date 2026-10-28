@@ -21,7 +21,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   /* La variable de next/font; --font-sans de @theme inline no existe como variable CSS */
-  font-family: var(--font-sans-face), system-ui, sans-serif;
+  font-family: var(--jm-letra, "Montserrat", var(--font-sans-face), system-ui, sans-serif);
 }
 
 /* Bandas panorámicas 2.39:1 arriba y abajo */
