@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+:root {
+  /* Negro cálido y acento tungsteno: la base de la identidad cinematográfica */
+  --background: #0d0b09;
+  --foreground: #efe8dd;
+  --muted: #9a8f80;
+  --accent: #d9a35b;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-sans-face);
+  --font-display: var(--font-display-face);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  /* La variable de next/font; --font-sans de @theme inline no existe como variable CSS */
+  font-family: var(--font-sans-face), system-ui, sans-serif;
+}
+
+/* Bandas panorámicas 2.39:1 arriba y abajo */
+.letterbox::before,
+.letterbox::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: max(0px, calc((100svh - 100vw / 2.39) / 2));
+  background: #000;
+  pointer-events: none;
+}
+.letterbox::before {
+  top: 0;
+}
+.letterbox::after {
+  bottom: 0;
+}

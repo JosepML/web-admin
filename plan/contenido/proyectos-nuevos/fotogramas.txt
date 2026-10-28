@@ -1,0 +1,30 @@
+# Fotogramas sacados de D:\VIDEOS WEB (proyecto|vídeo|segundos). Salen numerados en orden: <slug>-01.jpg, -02…
+ep-color-adrian-munoz|adrian trailer color/Trailer_Color_AdrianMuñoz_V2.mp4|8.91 11.46 21.65 34.38 44.57 47.11 52.21 57.3
+atavicas-trailer-obra-de-teatro|ATAVICAS/ATAVICAS2026_NEIRAYSANTAMARIA_VIDEORESUMEN_V2.mp4|6.3 18.89 23.09 39.88 44.08 48.28 65.07 86.07
+ais-10-anos|ais/ESCUELA_AIS_VIDEORESUMEN_V1.mp4|2.53 12.66 22.79 48.1 98.73 103.8 108.86 118.99
+albir-confort-real-estate|ALBIR CONFORT/VIDEO VILLA D'OR/VIDEO_VILLA_DOR_V1.mp4|3.98 19.88 35.79 51.69 75.55 91.46
+el-xato-evento-boda|EL XATO/VIDEORESUMEN_EVENTO_XATO_V2.mp4|2.76 13.78 35.83 52.36 85.43 96.45 101.97 124.01
+englobe-evento-redes|ENGLOBE/ENGLOBE_V4.mp4|4.42 7.37 19.15 27.99 42.73 45.67 60.41 66.3
+evento-grupo-lon-el-langui|LANGUI LON/ENCUENTROS_LON_LANGUI_V1.mp4|21.83 41.67 61.52 65.48 69.45 77.39
+locos-de-atar-ultimo-concierto|LOCOS DE ATAR - CONCIERTO 2025/VIDEORESUMEN_CONCIERTO_LDA_V1.mp4|11.08 25.86 40.64 62.81 92.36 129.31 136.69 158.86
+lavanderia-grupo-lon|LON/Reel1_LON_V2.mp4|1.22 3.67 50.18 52.63
+lavanderia-grupo-lon|LON/Reel4_LON_V2.mp4|1.13 12.47 51.0
+louk-the-grill|LOUK/REEL_LOUK_V1.mp4|0.88 2.63 6.14 7.89 18.41 20.16 21.91 41.19
+eventos-deportivos|SHIMANO SUPERCUP MASSI LA NUCIA/DILLUNS/AFTERMOVIE_SUPERCUPMASSI_LANUCIA_HORIZONTAL_V1.mp4|8.94 26.81 41.11 58.99 69.71
+eventos-deportivos|SHIMANO SUPERCUP MASSI LA NUCIA/DIUMENGE/COMPACTAT_SUPERCUP_LANUCIA_TV_APunt.mp4|18.56 115.09 152.21
+diferens-encuentro-2025|evento diferens/DIFERENS_2025_v1.mp4|11.98 35.94 59.9 75.87 99.83 115.81 123.79 171.71
+flama-aftermovie|flama/AFTERMOVIE_FLAMA_2026_V03.mp4|15.48 21.67 27.86 40.25 58.82 95.97 108.35 133.12
+flama-la-nucia-video-oficial|flama/FLAMA_LANUCIA_V3.mp4|3.82 19.12 34.42 42.07 80.33 133.88 141.53 164.47
+flama-benissa-video-oficial|flama/VIDEORESUMEN_FLAMA_BENISSA_V3.mp4|4.99 11.65 14.98 31.63 34.96 44.95 51.61 61.6
+forecourttech-2025|forecourttech 2025/FORECOURTTECH_2025_V3_WITHLOGO.mp4|3.39 23.75 50.89 57.67 84.81 111.95 152.66
+la-vibra-video-oficial|la vibra/Video_Oficial_LaVibra_V3.mp4|2.15 10.75 23.64 32.24 40.83 62.33 66.62 79.52
+madison-video-oficial|madison/Madison_Videoresumen_V3.mp4|2.65 7.95 29.15 39.75 50.35 71.55 92.75 113.95
+otra-movida-video-oficial|otra movida/OtraMovida_Videoresumen_V4_MASTERIZADA.mp4|9.31 15.52 21.72 46.55 52.76 77.58 90.0 139.65
+consell-valencia-joventut-charla|rrss consell valencia de la joventut/VIDEORESUM_CONSELL_HORITZONTAL_V2.mp4|2.29 6.86 11.44 25.17 48.05 66.36 75.52 89.25
+formacion-mario-bravo|video promocional formacion mario bravo/FORMACIÓN_MARIO_BRAVO.mp4|1.93 5.78 13.48 17.32 44.28 59.68 78.92
+zorom-ia|visuales ia/SPOT_PROMOTORA_V4.mp4|5.74 17.21 21.03 28.68 32.5 36.32 51.62 74.56
+flama-contenido-cinematografico-ia|visuales ia/VIDEO FLAMA PANTALLAS_V5.mp4|9.02 19.32 24.48 27.05 34.78 39.93 45.09 57.97
+aguita-de-coco-visuales|visuales ia/aguita de coco/A1-3x2-1080.mp4|0.67 8.67
+aguita-de-coco-visuales|visuales ia/aguita de coco/A2-3x2-1080.mp4|0.67
+aguita-de-coco-visuales|visuales ia/aguita de coco/A3-3x2-1080.mp4|4.67
+aguita-de-coco-visuales|visuales ia/aguita de coco/A4-3x2-1080-30s.mp4|6.88

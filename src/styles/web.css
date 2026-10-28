@@ -1,0 +1,373 @@
+/* Piezas de la web (dirección D · Cristal): raíz con el tema, cristal, botones, orbes, marquesinas,
+   barrido de luz de los clientes, palabra de acento... Los valores (colores, curvas, radios) están en
+   src/styles/tokens.css y aquí solo se usan. Copiado de src/app/prototipos/d/cristal.css, que se borra
+   en la fase 7. */
+
+/* En la capa components para que las utilidades de Tailwind (fixed, absolute...) puedan sobrescribirlas */
+@layer components {
+/* Raíz de la web: lleva data-tema (claro u oscuro), así que los tokens ya tienen su valor aquí */
+.jm-raiz {
+  background: var(--jm-fondo);
+  color: var(--jm-texto);
+  /* Montserrat (next/font, en (web)/layout.tsx) */
+  font-family: var(--jm-letra);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.jm-serif {
+  font-family: var(--jm-letra-acento);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Cristal: base translúcida con brillo en diagonal, borde claro y un reflejo arriba.
+   Sin backdrop-filter: desenfocar lo que hay detrás en cada tarjeta era lo que más pesaba al hacer scroll. */
+.cristal {
+  position: relative;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 55%),
+    var(--jm-cristal-base);
+  border: 1px solid var(--jm-borde);
+  box-shadow:
+    inset 0 1px 0 var(--jm-reflejo),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.03),
+    var(--jm-sombra);
+}
+/* Solo el menú, el editor y las piezas pequeñas que flotan sobre el contenido desenfocan de verdad */
+.cristal-fuerte {
+  background: var(--jm-cristal-fuerte);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
+/* Foco de luz que sigue al ratón (las variables --mx/--my las pone useFoco) */
+/* Una mancha de luz fija que solo se desplaza con transform: antes se repintaba un degradado
+   en toda la tarjeta en cada movimiento del ratón */
+[data-foco] {
+  --mx: -400px;
+  --my: -400px;
+  --foco: 0;
+  overflow: hidden;
+}
+[data-foco]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 420px;
+  height: 420px;
+  pointer-events: none;
+  opacity: var(--foco);
+  /* 2D y sin will-change: con translate3d/will-change cada tarjeta tenía su propia capa permanente
+     (unas 30 capas solo para esto). Ahora solo se repinta la tarjeta bajo el ratón mientras se mueve */
+  transform: translate(calc(var(--mx) - 210px), calc(var(--my) - 210px));
+  transition: opacity 0.4s var(--jm-curva);
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.13), transparent);
+  z-index: 2;
+}
+.jm-raiz[data-tema="claro"] [data-foco]::after {
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.75), transparent);
+}
+
+/* Botones píldora */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition:
+    transform 0.35s var(--jm-curva),
+    background-color 0.3s,
+    box-shadow 0.35s var(--jm-curva);
+}
+.boton:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.boton:active {
+  transform: scale(0.97);
+}
+.boton-acento {
+  background: var(--jm-acento);
+  color: #fff;
+  box-shadow: 0 10px 30px -10px rgba(229, 9, 20, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+.boton-acento:hover {
+  box-shadow: 0 16px 40px -10px rgba(229, 9, 20, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Fondo con orbes que se mueven despacio */
+.orbes {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Degradados radiales en vez de filter: blur (que se recalculaba en cada fotograma de la animación) */
+.orbes span {
+  position: absolute;
+  border-radius: 999px;
+}
+.orbes span:nth-child(1) {
+  width: 70vw;
+  height: 70vw;
+  left: -22vw;
+  top: -2vh;
+  background: radial-gradient(closest-side, var(--jm-orbe-a), transparent);
+  animation: orbe-1 26s ease-in-out infinite alternate;
+}
+.orbes span:nth-child(2) {
+  width: 60vw;
+  height: 60vw;
+  right: -20vw;
+  top: 28vh;
+  background: radial-gradient(closest-side, var(--jm-orbe-b), transparent);
+  animation: orbe-2 32s ease-in-out infinite alternate;
+}
+.orbes span:nth-child(3) {
+  width: 50vw;
+  height: 50vw;
+  left: 22vw;
+  bottom: -24vh;
+  background: radial-gradient(closest-side, var(--jm-orbe-c), transparent);
+  animation: orbe-3 38s ease-in-out infinite alternate;
+}
+@keyframes orbe-1 {
+  to { transform: translate3d(22vw, 18vh, 0) scale(1.15); }
+}
+@keyframes orbe-2 {
+  to { transform: translate3d(-26vw, -22vh, 0) scale(0.9); }
+}
+@keyframes orbe-3 {
+  to { transform: translate3d(18vw, -30vh, 0) scale(1.2); }
+}
+
+/* Grano muy sutil, para que el cristal no parezca plástico. Va dentro de la capa fija de los orbes
+   (antes era otra capa fija a pantalla completa por encima de ellos, que obligaba al navegador a
+   separar en capas todo lo que quedaba encima) */
+.orbes::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Marquesinas */
+@keyframes jm-desliza {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.jm-marquesina {
+  animation: jm-desliza var(--duracion, 50s) linear infinite;
+}
+.jm-marquesina-inversa {
+  animation: jm-desliza var(--duracion, 50s) linear infinite reverse;
+}
+.jm-marquesina-pausa:hover .jm-marquesina,
+.jm-marquesina-pausa:hover .jm-marquesina-inversa {
+  animation-play-state: paused;
+}
+.jm-mascara-lados {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Titulares en color sólido: el degradado recortado al texto cortaba las tildes, los "¿" y las letras con
+   rabito (p, g, j), que se salen de la caja de la línea con interlineados tan cerrados */
+.jm-degradado {
+  color: var(--jm-texto);
+}
+/* La palabra de acento sí lleva degradado: con relleno alrededor para que la cursiva no se corte */
+.jm-degradado-acento {
+  background: linear-gradient(90deg, var(--jm-acento), var(--jm-calido));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding: 0.12em 0.14em 0.16em 0.04em;
+  margin: -0.12em -0.1em -0.16em -0.04em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Logos de clientes en un solo tono (negro en claro, blanco en oscuro) y con la misma luminancia que los
+   nombres en texto de la misma fila, para que ninguno destaque sobre los demás */
+.jm-logo {
+  filter: brightness(0) invert(1);
+  opacity: var(--jm-logo-opacidad);
+  transition: opacity 0.3s;
+}
+.jm-logo:hover {
+  opacity: 1;
+}
+.jm-raiz[data-tema="claro"] .jm-logo {
+  filter: brightness(0);
+}
+/* Un logo es una mancha llena: a la misma opacidad que un nombre escrito se ve más brillante. Van un punto
+   por debajo para que, a la vista, logos y nombres pesen igual */
+.jm-logo.jm-logo-barrido,
+.jm-logo.jm-logo-barrido:hover {
+  opacity: 0.84;
+}
+.jm-logo.jm-logo-compacto {
+  opacity: var(--jm-logo-juno);
+}
+.jm-logo.jm-logo-compacto:hover {
+  opacity: var(--jm-logo-opacidad);
+}
+
+/* Barrido de luz en "Han confiado en mí": cada marca está al 82 % (escala de la sección) y sube al 100 %
+   cuando le llega la luz. Una sola animación de opacidad por marca, con retrasos escalonados en el JSX para
+   que la luz cruce la rejilla en diagonal: pasada de unos 3 s y pausa de unos 4 s (ciclo de 7 s).
+   Solo con data-barrido (sección en pantalla y movimiento permitido); con el ratón encima se para y se
+   ilumina la marca concreta. */
+.jm-barrido-marca {
+  display: inline-flex;
+  opacity: 0.82;
+  transition: opacity 0.4s var(--jm-curva);
+}
+.jm-barrido[data-barrido] .jm-barrido-marca {
+  animation: jm-luz 7s ease-in-out infinite;
+}
+.jm-barrido:hover .jm-barrido-marca {
+  animation: none;
+}
+.jm-barrido .jm-barrido-marca:hover {
+  opacity: 1;
+}
+@keyframes jm-luz {
+  0% { opacity: 0.82; }
+  9% { opacity: 1; }
+  21% { opacity: 0.82; }
+  100% { opacity: 0.82; }
+}
+
+/* Punto de "disponible" que late */
+/* Un anillo que crece y se desvanece (transform y opacidad): antes se animaba box-shadow, que obligaba a
+   repintar en cada fotograma mientras la página estaba abierta */
+@keyframes latido {
+  0% { transform: scale(1); opacity: 0.6; }
+  70% { transform: scale(3); opacity: 0; }
+  100% { transform: scale(3); opacity: 0; }
+}
+.latido {
+  position: relative;
+}
+.latido::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgb(52, 199, 89);
+  animation: latido 2s infinite;
+}
+
+.sin-barra {
+  scrollbar-width: none;
+}
+.sin-barra::-webkit-scrollbar {
+  display: none;
+}
+
+/* "Reducir movimiento" (data-reducir, si useReducir() lo activa algún día): fuera lo que se mueve en
+   bucle. Las marquesinas se quedan quietas pero visibles (con opacidad 0 desaparecían las opiniones) */
+.jm-raiz[data-reducir] .orbes span,
+.jm-raiz[data-reducir] .latido::after {
+  animation: none;
+  opacity: 0;
+}
+.jm-raiz[data-reducir] .jm-marquesina,
+.jm-raiz[data-reducir] .jm-marquesina-inversa {
+  animation: none;
+}
+.jm-raiz[data-reducir] .boton:hover {
+  transform: none;
+}
+}
+
+/* Índice lateral: en pantallas de escritorio de menos de 1440 px (portátiles con escalado de Windows) el
+   contenido de las secciones empezaba debajo del índice. Se le deja sitio a la izquierda solo al contenido
+   (no al fondo de la sección ni al carrusel, que siguen a todo el ancho). Fuera de la capa para que gane
+   a los márgenes de Tailwind. */
+@media (min-width: 1024px) and (max-width: 1439.98px) {
+  .jm-raiz [data-bloque]:not([data-bloque="portada"]) .max-w-7xl:not(.max-w-7xl .max-w-7xl) {
+    padding-left: 5rem;
+  }
+}
+
+/* Scroll nativo (sin Lenis, que añadía latencia). El menú fijo deja 88 px arriba al saltar a un ancla */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Vídeo de YouTube que cubre su contenedor como object-fit: cover */
+.yt-marco {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  pointer-events: none;
+}
+.yt-cubrir {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100cqw, 177.78cqh);
+  height: max(100cqh, 56.25cqw);
+  transform: translate(-50%, -50%) scale(1.18);
+  border: 0;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.02) translate(0, 0); }
+  to { transform: scale(1.12) translate(-1.5%, -1%); }
+}
+
+/* Un bloque que no tiene nada que enseñar (p. ej. opiniones sin ninguna publicada) no deja un hueco */
+[data-bloque]:empty {
+  display: none;
+}
+
+/* Con el vídeo grande abierto, la página de detrás se congela: ni orbes, ni marquesinas, ni barridos. Lo tapa
+   la ventana del vídeo y así el navegador no gasta nada en ella (ver marcarVideoAbierto en comun/hooks.ts) */
+.jm-raiz[data-video] *,
+.jm-raiz[data-video] *::before,
+.jm-raiz[data-video] *::after {
+  animation-play-state: paused !important;
+}
+.jm-raiz[data-video] .orbes {
+  visibility: hidden;
+}
+
+
+/* Banners de servicios en Inicio: en móvil altura amplia para llenar la pantalla y dejar ver la foto */
+.jm-banner-servicio {
+  height: clamp(200px, 24.5svh, 275px);
+}
+@media (min-width: 640px) {
+  .jm-banner-servicio {
+    height: clamp(230px, 27svh, 300px);
+  }
+}
+@media (min-width: 768px) {
+  .jm-banner-servicio {
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+}
+@media (min-width: 1024px) {
+  .jm-banner-servicio {
+    aspect-ratio: auto;
+    height: min(56svh, 600px);
+  }
+}

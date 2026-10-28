@@ -1,0 +1,39 @@
+# slug|archivo|título|principal(1/0)|vertical(1/0)  — los vídeos están en el bucket jml-videos de Cloudflare R2
+ep-color-adrian-munoz|trailer-color-adrianmunoz-v2.mp4|Tráiler|1|0
+atavicas-trailer-obra-de-teatro|atavicas2026-neiraysantamaria-videoresumen-v2.mp4|Vídeo resumen|1|0
+ais-10-anos|escuela-ais-videoresumen-v1.mp4|Vídeo resumen|1|0
+albir-confort-real-estate|video-villa-dor-v1.mp4|Villa d'Or|1|0
+el-xato-evento-boda|videoresumen-evento-xato-v2.mp4|Vídeo resumen|1|0
+englobe-evento-redes|englobe-v4.mp4|Englobe|1|1
+evento-grupo-lon-el-langui|encuentros-lon-langui-v1.mp4|El Langui con Grupo LON|1|1
+locos-de-atar-ultimo-concierto|videoresumen-concierto-lda-v1.mp4|El último concierto|1|0
+lavanderia-grupo-lon|reel1-lon-v2.mp4|Reel 1|0|1
+lavanderia-grupo-lon|reel4-lon-v2.mp4|Reel 4|0|1
+louk-the-grill|reel-louk-v1.mp4|Reel|1|1
+eventos-deportivos|aftermovie-supercupmassi-lanucia-horizontal-v1.mp4|Aftermovie|0|0
+eventos-deportivos|compactat-supercup-lanucia-tv-apunt.mp4|Resumen para À Punt|0|0
+diferens-encuentro-2025|diferens-2025-v1.mp4|Vídeo resumen|1|0
+flama-aftermovie|aftermovie-flama-2026-v03.mp4|Aftermovie|1|0
+flama-la-nucia-video-oficial|flama-lanucia-v3.mp4|Vídeo oficial|1|0
+flama-benissa-video-oficial|videoresumen-flama-benissa-v3.mp4|Vídeo oficial|1|0
+forecourttech-2025|forecourttech-2025-v3-withlogo.mp4|Vídeo resumen|1|0
+la-vibra-video-oficial|video-oficial-lavibra-v3.mp4|Vídeo oficial|1|0
+madison-video-oficial|madison-videoresumen-v3.mp4|Vídeo oficial|1|0
+otra-movida-video-oficial|otramovida-videoresumen-v4-masterizada.mp4|Vídeo oficial|1|0
+consell-valencia-joventut-charla|videoresum-consell-horitzontal-v2.mp4|Vídeo resumen|1|0
+formacion-mario-bravo|formacion-mario-bravo.mp4|Vídeo promocional|1|0
+zorom-ia|spot-promotora-v4.mp4|Amiral by Zorom|1|0
+flama-contenido-cinematografico-ia|video-flama-pantallas-v5.mp4|Foc i Flama|1|0
+aguita-de-coco-visuales|a1-3x2-1080.mp4|Animación 1|1|0
+aguita-de-coco-visuales|a2-3x2-1080.mp4|Animación 2|0|0
+aguita-de-coco-visuales|a3-3x2-1080.mp4|Animación 3|0|0
+aguita-de-coco-visuales|a4-3x2-1080-30s.mp4|Animación 4|0|0
+albir-confort-reels|reel1-presentacion-james-v3.mp4|Reel 1 · Presentación de James|1|1
+albir-confort-reels|reel2-tip2-v1.mp4|Reel 2|0|1
+albir-confort-reels|reel3-tip3-v1.mp4|Reel 3|0|1
+albir-confort-reels|reel4-tip4-v1.mp4|Reel 4|0|1
+albir-confort-reels|reel5-tip5-v1.mp4|Reel 5|0|1
+albir-confort-reels|reel6-tip7-v1.mp4|Reel 6|0|1
+albir-confort-reels|reel7-tip11-v1.mp4|Reel 7|0|1
+y-el-ano-que-viene-que|portada-horizontal.mp4|Portada horizontal (16:9)|1|0
+y-el-ano-que-viene-que|portada-vertical.mp4|Portada vertical (9:16)|0|1

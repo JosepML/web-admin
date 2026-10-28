@@ -1,0 +1,245 @@
+"use client";
+
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import type { Bloque } from "@/lib/datos/tipos";
+import { usePantallaAncha, useReducir } from "../comun/hooks";
+import { enfoque } from "../comun/imagen";
+import { VideoFondo } from "../comun/VideoFondo";
+import { Icono } from "../Iconos";
+import { Editable, useEditando } from "../edicion/contexto";
+import { useDatos, useMedio } from "../marco/DatosWeb";
+import { CURVA, Disponible, ModalVideo } from "../piezas";
+import { objeto, texto, textos } from "@/lib/datos/util";
+
+const PAPELES = ["director de fotografía", "filmmaker", "editor"];
+
+/**
+ * Portada: el reel en una tarjeta redondeada. Ya no se queda fijada: la página baja con el scroll normal
+ * y, mientras se va, la tarjeta se aleja un poco y el texto sube y se funde. La siguiente sección entra
+ * en cuanto empiezas a bajar.
+ */
+export function BloquePortada({ bloque }: { bloque: Bloque }) {
+  const { antetitulo, titulo = "", texto: entradilla } = bloque.datos;
+  const { ajustes } = useDatos();
+  const video = objeto(bloque.datos.video);
+  const youtubeId = texto(video.youtubeId) || null;
+  const poster = useMedio(video.poster);
+  const archivoHorizontalMedio = useMedio(video.horizontal ?? video.medio);
+  const archivoVerticalMedio = useMedio(video.vertical);
+  const completoMedio = useMedio(video.completo);
+
+  // Vídeos adaptados en Cloudflare R2: si la base de datos ya tiene el UUID se usa; si aún tiene el vídeo
+  // provisional anterior (portada-inicio.mp4) o no se ha asignado el vertical, entra la versión adaptada:
+  const R2_BASE = "https://pub-6f35ba056b9043b7bcb5b19b06b6a6e2.r2.dev/y-el-ano-que-viene-que";
+  const urlHorizontal =
+    archivoHorizontalMedio?.url && !archivoHorizontalMedio.url.endsWith("portada-inicio.mp4")
+      ? archivoHorizontalMedio.url
+      : `${R2_BASE}/portada-horizontal.mp4`;
+  const urlVertical = archivoVerticalMedio?.url ?? `${R2_BASE}/portada-vertical.mp4`;
+  const urlCompleto = completoMedio?.url ?? `${R2_BASE}/y-el-ano-que-viene-que-completo.mp4`;
+
+
+  const papeles = textos(bloque.datos.papeles);
+  const ref = useRef<HTMLElement>(null);
+  const reducir = useReducir();
+  const ancha = usePantallaAncha();
+  const anima = ancha && !reducir;
+  const [reel, setReel] = useState(false);
+  const editando = useEditando();
+
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  // Solo transform y opacidad, que no recalculan nada al hacer scroll
+  const escala = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
+  const yTexto = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const opTexto = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const opPista = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
+
+  const palabras = titulo.trim().split(/\s+/);
+
+  return (
+    <section ref={ref} className="relative">
+      <div className="relative h-svh min-h-[600px] p-2 sm:p-3">
+        <motion.div
+          className="relative h-full w-full overflow-hidden rounded-[28px] bg-black [will-change:transform] sm:rounded-[36px]"
+          style={anima ? { scale: escala } : undefined}
+        >
+          {/* El reel provisional es panorámico con bandas negras y subtítulos dentro: se recorta más para ocultarlos */}
+          <VideoFondo
+            archivo={urlHorizontal}
+            archivoVertical={urlVertical}
+            youtubeId={youtubeId}
+            inicio={typeof video.inicio === "number" ? video.inicio : 0}
+            poster={poster?.url}
+            foco={enfoque(poster)}
+            escala={typeof video.recorte === "number" ? video.recorte : undefined}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/35" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_25%_85%,rgba(229,9,20,0.2),transparent_60%)]" />
+
+          {/* Texto principal */}
+          <motion.div
+            className="absolute inset-x-0 bottom-0 z-10 px-4 pb-12 text-white sm:px-12 sm:pb-24"
+            style={anima ? { y: yTexto, opacity: opTexto } : undefined}
+          >
+            {ajustes.disponible && (
+              <motion.div initial={{ opacity: 0, y: reducir ? 0 : 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8, ease: CURVA }}>
+                <Disponible className="!border-white/20 !bg-white/10 text-white" />
+              </motion.div>
+            )}
+            {(antetitulo || editando) && (
+              <motion.p
+                className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-white/70 sm:mt-6 sm:text-[13px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.35, duration: 0.8 }}
+              >
+                <Editable campo="antetitulo" valor={antetitulo} vacio="Antetítulo">
+                  {antetitulo}
+                </Editable>
+              </motion.p>
+            )}
+            <h1 className="mt-2 max-w-6xl text-[clamp(2.4rem,8.5vw,9rem)] font-extrabold leading-[0.95] tracking-[-0.05em] sm:mt-3">
+              <Editable campo="titulo" valor={titulo} vacio="Tu nombre">
+              {palabras.map((p, i) => {
+                const ultima = i === palabras.length - 1;
+                const [, palabra, signos] = ultima ? (p.match(/^(.*?)([?!.,:…]*)$/) ?? [, p, ""]) : [, p, ""];
+                return (
+                  <motion.span
+                    key={`${p}-${i}`}
+                    className="mr-[0.22em] inline-block pb-[0.08em]"
+                    initial={{ opacity: 0, y: reducir ? 0 : 40, filter: reducir ? "none" : "blur(12px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    transition={{ delay: 0.45 + i * 0.09, duration: 1, ease: CURVA }}
+                  >
+                    {ultima ? (
+                      <>
+                        <span className="jm-serif bg-gradient-to-r from-[#ff5a4d] to-[#ffb36b] bg-clip-text pr-[0.12em] text-[1.06em] font-normal tracking-[-0.02em] text-transparent">
+                          {palabra}
+                        </span>
+                        {/* El relleno evita que se corte la cursiva; el margen negativo pega el punto a la palabra */}
+                        {signos && <span className="-ml-[0.1em]">{signos}</span>}
+                      </>
+                    ) : (
+                      p
+                    )}
+                  </motion.span>
+                );
+              })}
+              </Editable>
+            </h1>
+
+            <div className="mt-4 flex flex-col gap-5 sm:mt-7 sm:gap-8 lg:flex-row lg:items-end lg:justify-between">
+              <motion.div
+                className="max-w-xl"
+                initial={{ opacity: 0, y: reducir ? 0 : 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.9, ease: CURVA }}
+              >
+                {/* "Soy" en la letra base, discreto; la palabra que rota en la cursiva artística, más grande */}
+                <p className="flex items-baseline gap-[0.3em] text-[clamp(1.3rem,2.4vw,2.4rem)] font-bold leading-none tracking-[-0.03em] text-white">
+                  Soy <PalabraRotatoria palabras={papeles.length ? papeles : PAPELES} />
+                </p>
+                {(entradilla || editando) && (
+                  <p className="mt-3 max-w-lg text-[17px] leading-[1.6] text-white/80 [text-wrap:pretty] sm:text-lg">
+                    <Editable campo="texto" valor={entradilla} multilinea vacio="Entradilla">
+                      {entradilla}
+                    </Editable>
+                  </p>
+                )}
+              </motion.div>
+
+              <motion.div
+                className="flex flex-wrap items-center gap-2 sm:gap-3"
+                initial={{ opacity: 0, y: reducir ? 0 : 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.05, duration: 0.9, ease: CURVA }}
+              >
+                {(urlCompleto || youtubeId) && (
+                <button
+                  type="button"
+                  onClick={() => setReel(true)}
+                  className="boton border border-white/25 bg-white/10 px-3.5 py-2.5 text-xs text-white backdrop-blur-xl hover:bg-white/20 sm:px-5 sm:py-3.5 sm:text-sm"
+                >
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-black">
+                    <Icono nombre="play" className="ml-0.5 h-3 w-3" />
+                  </span>
+                  Ver reel
+                </button>
+                )}
+                <Link href="#trabajos" className="boton border border-white/25 bg-white/10 px-4 py-2.5 text-xs text-white backdrop-blur-xl hover:bg-white/20 sm:px-6 sm:py-3.5 sm:text-sm">
+                  Ver trabajos
+                </Link>
+                <Link href="/contacto" className="boton boton-acento px-4 py-2.5 text-xs sm:px-6 sm:py-3.5 sm:text-sm">
+                  Hablemos
+                  <Icono nombre="flecha" className="h-4 w-4" />
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Indicador de scroll: una línea fina por la que baja una luz */}
+          <motion.a
+            href="#servicios"
+            aria-label="Bajar"
+            style={{ opacity: opPista }}
+            className="absolute bottom-2 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-white/70 sm:bottom-5 sm:flex"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.6, duration: 1 }}
+          >
+            <span className="relative h-10 w-px overflow-hidden bg-white/25">
+              {!reducir && (
+                <motion.span
+                  className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-transparent via-white to-transparent"
+                  animate={{ y: [-16, 40] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: [0.45, 0, 0.55, 1] }}
+                />
+              )}
+            </span>
+            Desliza
+          </motion.a>
+        </motion.div>
+      </div>
+      {(urlCompleto || youtubeId) && (
+        <ModalVideo archivo={urlCompleto} id={youtubeId ?? undefined} abierto={reel} alCerrar={() => setReel(false)} />
+      )}
+    </section>
+  );
+}
+
+/**
+ * Palabra que cambia con un fundido cruzado lento: la nueva sube un poco y se enfoca mientras la otra
+ * se va. Todas las palabras ocupan la misma celda (invisibles) para que la línea no cambie de ancho.
+ */
+function PalabraRotatoria({ palabras }: { palabras: string[] }) {
+  const [i, setI] = useState(0);
+  const reducir = useReducir();
+
+  useEffect(() => {
+    const t = window.setInterval(() => setI((n) => (n + 1) % palabras.length), 3400);
+    return () => window.clearInterval(t);
+  }, [palabras.length]);
+
+  return (
+    <span className="jm-serif relative inline-grid text-[1.24em] leading-none font-normal tracking-[-0.01em]">
+      {palabras.map((p) => (
+        <span key={p} className="invisible whitespace-nowrap pr-[0.1em] [grid-area:1/1]" aria-hidden>
+          {p}
+        </span>
+      ))}
+      <AnimatePresence initial={false}>
+        <motion.span
+          key={palabras[i]}
+          className="whitespace-nowrap bg-gradient-to-r from-[#ff3b30] via-[#ff6a4d] to-[#ffb36b] bg-clip-text pb-[0.1em] pr-[0.1em] text-transparent [filter:drop-shadow(0_0_18px_rgba(255,80,60,0.35))] [grid-area:1/1]"
+          initial={{ opacity: 0, y: reducir ? 0 : "0.35em", filter: reducir ? "none" : "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 1.1, ease: CURVA, delay: 0.25 } }}
+          exit={{ opacity: 0, y: reducir ? 0 : "-0.3em", filter: reducir ? "none" : "blur(6px)", transition: { duration: 0.8, ease: CURVA } }}
+        >
+          {palabras[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}

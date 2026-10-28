@@ -1,0 +1,35 @@
+/* Estilos compartidos de los prototipos de la fase 3 */
+
+/* Scroll nativo: sin Lenis, que añadía latencia y hacía que la portada pareciera costar de bajar */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Vídeo de YouTube que cubre su contenedor como object-fit: cover */
+.yt-marco {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+  pointer-events: none;
+}
+.yt-cubrir {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100cqw, 177.78cqh);
+  height: max(100cqh, 56.25cqw);
+  transform: translate(-50%, -50%) scale(1.18);
+  border: 0;
+}
+
+@keyframes kenburns {
+  from { transform: scale(1.02) translate(0, 0); }
+  to { transform: scale(1.12) translate(-1.5%, -1%); }
+}

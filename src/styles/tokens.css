@@ -1,0 +1,130 @@
+/* Tokens de diseño definitivos de la web (dirección visual D · Cristal).
+   Fuente única de colores, letras, radios, sombras y movimiento: el prototipo D los usa a través de sus
+   alias --d-* (cristal.css) y la web final (tareas C a K) los importa directamente.
+   Tema: oscuro por defecto; data-tema="claro" en un antepasado cambia a claro. Los valores en TS de las
+   curvas y duraciones (para motion) están en src/styles/movimiento.ts y deben coincidir con estos. */
+
+:root,
+[data-tema="oscuro"] {
+  /* Fondo y texto */
+  --jm-fondo: #09090b;
+  --jm-fondo-2: #121214;
+  --jm-texto: #f5f5f7;
+  --jm-suave: rgba(245, 245, 247, 0.62);
+  --jm-tenue: rgba(245, 245, 247, 0.38);
+
+  /* Escala de luminancia de "Han confiado en mí": titular 100 %, clientes 82 %, marca JUNO 74 %,
+     antetítulos y frase 58 %, marcas de JUNO 52 %, líneas 12 % */
+  --jm-cliente: rgba(245, 245, 247, 0.82);
+  --jm-juno: rgba(245, 245, 247, 0.74);
+  --jm-ante: rgba(245, 245, 247, 0.58);
+  --jm-medio: rgba(245, 245, 247, 0.52);
+  --jm-linea: rgba(245, 245, 247, 0.12);
+  --jm-logo-opacidad: 0.82;
+  /* Logos de JUNO: un poco por debajo de sus nombres escritos (52 %), que con letra fina pesan menos */
+  --jm-logo-juno: 0.46;
+
+  /* Cristal */
+  --jm-cristal: rgba(255, 255, 255, 0.06);
+  --jm-cristal-base: rgba(255, 255, 255, 0.05);
+  --jm-cristal-fuerte: rgba(30, 30, 34, 0.6);
+  --jm-borde: rgba(255, 255, 255, 0.12);
+  --jm-reflejo: rgba(255, 255, 255, 0.22);
+  --jm-sombra: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+
+  /* Velo que apaga las tarjetas vecinas del carrusel de Selección */
+  --jm-velo-vecina: 0.6;
+
+  /* Orbes de luz del fondo */
+  --jm-orbe-a: rgba(229, 9, 20, 0.4);
+  --jm-orbe-b: rgba(255, 138, 61, 0.28);
+  --jm-orbe-c: rgba(120, 80, 255, 0.18);
+}
+
+/* El esquema de color solo donde hay un tema declarado: en :root cambiaría las barras de scroll y los
+   controles de otras páginas */
+[data-tema="oscuro"] {
+  color-scheme: dark;
+}
+
+[data-tema="claro"] {
+  --jm-fondo: #f5f5f7;
+  --jm-fondo-2: #ffffff;
+  --jm-texto: #1d1d1f;
+  --jm-suave: rgba(29, 29, 31, 0.64);
+  --jm-tenue: rgba(29, 29, 31, 0.42);
+
+  --jm-cliente: rgba(29, 29, 31, 0.82);
+  --jm-juno: rgba(29, 29, 31, 0.76);
+  --jm-ante: rgba(29, 29, 31, 0.6);
+  --jm-medio: rgba(29, 29, 31, 0.54);
+  --jm-linea: rgba(29, 29, 31, 0.12);
+  --jm-logo-opacidad: 0.82;
+  --jm-logo-juno: 0.5;
+
+  --jm-cristal: rgba(255, 255, 255, 0.55);
+  --jm-cristal-base: rgba(255, 255, 255, 0.62);
+  --jm-cristal-fuerte: rgba(255, 255, 255, 0.75);
+  --jm-borde: rgba(255, 255, 255, 0.9);
+  --jm-reflejo: rgba(255, 255, 255, 0.9);
+  --jm-sombra: 0 30px 70px -30px rgba(40, 30, 20, 0.28);
+
+  --jm-velo-vecina: 0.3;
+
+  --jm-orbe-a: rgba(229, 9, 20, 0.2);
+  --jm-orbe-b: rgba(255, 138, 61, 0.26);
+  --jm-orbe-c: rgba(120, 80, 255, 0.14);
+
+  color-scheme: light;
+}
+
+/* Letras. --font-base y --font-acento las pone next/font en un contenedor (Montserrat de 400 a 800 e
+   Instrument Serif cursiva, solo para la palabra de acento y la palabra que rota en la portada). Por eso se
+   declaran en el elemento que lleva el tema, que está dentro de ese contenedor: en :root aún no existen y
+   la variable quedaría vacía */
+[data-tema] {
+  --jm-letra: var(--font-base), var(--font-sans-face), system-ui, sans-serif;
+  --jm-letra-acento: var(--font-acento), Georgia, serif;
+}
+
+/* Lo que no cambia con el tema */
+:root {
+  /* Marca */
+  --jm-acento: #e50914; /* rojo: botones principales, marca activa, palabra de acento (inicio del degradado) */
+  --jm-calido: #ff8a3d; /* naranja: final del degradado de la palabra de acento */
+  --jm-acento-claro: #ffc07a; /* frase en cursiva sobre foto (tarjetas de Lo que hago) */
+  --jm-laurel: #ffcf7a; /* icono de premio */
+  --jm-disponible: #34c759; /* punto que late de "Disponible" */
+  --jm-sombra-acento: 0 6px 20px -6px rgba(229, 9, 20, 0.7); /* pastilla roja del filtro activo */
+
+  /* Escala de texto */
+  --jm-titular-portada: clamp(2.9rem, 9.5vw, 9rem); /* nombre en la portada (hero) */
+  --jm-soy: clamp(1.6rem, 2.6vw, 2.4rem); /* línea "Soy …" de la portada (la palabra que rota, a 1,24em) */
+  --jm-titular-ficha: clamp(2.5rem, 7vw, 6.5rem); /* título en la cabecera de una ficha de proyecto */
+  --jm-titular: clamp(2rem, min(5vw, 7.4svh), 4.4rem); /* titular de sección (componente Titular) */
+  --jm-frase: clamp(1.7rem, 3.6vw, 3rem); /* frase destacada de una ficha */
+  --jm-texto-grande: 1.125rem; /* entradilla bajo un titular */
+  --jm-etiqueta: 11px; /* antetítulos y etiquetas: mayúsculas, peso 600, tracking 0,16em */
+  --jm-tracking-titular: -0.04em;
+  --jm-tracking-etiqueta: 0.16em;
+
+  /* Radios (en px, como en el prototipo) */
+  --jm-radio-pastilla: 999px; /* botones, etiquetas, filtros, índice plegado */
+  --jm-radio-mini: 18px; /* miniaturas de galería */
+  --jm-radio-medio: 28px; /* foto de fotograma, ventana de vídeo, chips grandes */
+  --jm-radio-tarjeta: 32px; /* tarjetas de proyecto y de cristal */
+  --jm-radio-tarjeta-grande: 36px; /* tarjetas con foto de Lo que hago y Lo que grabo */
+  --jm-radio-bloque: 40px; /* bloques grandes (llamada final, siguiente proyecto, cabecera de ficha) */
+
+  /* Sombras de las tarjetas con foto (el cristal usa --jm-sombra, que cambia con el tema) */
+  --jm-sombra-foto: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+  --jm-sombra-carrusel: 0 30px 60px -36px rgba(0, 0, 0, 0.75);
+
+  /* Movimiento. Solo se animan transform y opacity (y filas o columnas de rejilla en plegables pequeños) */
+  --jm-curva: cubic-bezier(0.22, 1, 0.36, 1); /* curva de toda la web: salida rápida y llegada suave */
+  --jm-curva-viaje: cubic-bezier(0.65, 0, 0.25, 1); /* deslizamientos largos: carrusel y scroll mágico */
+  --jm-rapida: 300ms; /* color y pequeños cambios al pasar el ratón */
+  --jm-media: 500ms; /* flechas, iconos, marcas del índice */
+  --jm-lenta: 700ms; /* tarjetas, plegables, velos */
+  --jm-entrada: 900ms; /* aparición al entrar en pantalla (Revelar): fundido y subida de 28 px */
+}

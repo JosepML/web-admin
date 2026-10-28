@@ -1,0 +1,335 @@
+/* Piezas del panel y del editor de la web: campos de formulario, interruptores, listas y avisos.
+   Mismos tokens y cristal que la web (tokens.css, web.css). Solo las ve Josep. */
+
+@layer components {
+.campo-etiqueta {
+  display: block;
+  padding-inline: 0.25rem;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--jm-suave);
+}
+.campo-ayuda {
+  display: block;
+  padding-inline: 0.25rem;
+  margin-top: 0.35rem;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--jm-tenue);
+}
+.campo {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--jm-borde);
+  background: rgba(0, 0, 0, 0.22);
+  padding: 0.7rem 0.9rem;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--jm-texto);
+  outline: none;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s var(--jm-curva),
+    background-color 0.3s;
+}
+[data-tema="claro"] .campo {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(29, 29, 31, 0.14);
+}
+.campo:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.campo:focus {
+  border-color: var(--jm-acento);
+  box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.16);
+}
+.campo::placeholder {
+  color: var(--jm-tenue);
+}
+textarea.campo {
+  resize: vertical;
+  min-height: 5.5rem;
+}
+select.campo {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--jm-suave) 50%), linear-gradient(135deg, var(--jm-suave) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 55%,
+    calc(100% - 13px) 55%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 2.2rem;
+}
+select.campo option {
+  background: var(--jm-fondo-2);
+}
+
+/* Interruptor tipo iOS */
+.interruptor {
+  position: relative;
+  display: inline-flex;
+  height: 26px;
+  width: 44px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  transition: background-color 0.35s var(--jm-curva);
+}
+.interruptor::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: 20px;
+  width: 20px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s var(--jm-curva);
+}
+.interruptor[aria-checked="true"] {
+  background: #34c759;
+}
+.interruptor[aria-checked="true"]::after {
+  transform: translateX(18px);
+}
+
+/* Botón redondo pequeño (iconos de las listas y barras de herramientas) */
+.boton-icono {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  color: var(--jm-suave);
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    transform 0.3s var(--jm-curva);
+}
+.boton-icono:hover {
+  background: var(--jm-cristal);
+  color: var(--jm-texto);
+}
+.boton-icono:active {
+  transform: scale(0.92);
+}
+.boton-icono:disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.boton-suave {
+  border: 1px solid var(--jm-borde);
+  background: var(--jm-cristal);
+}
+.boton-suave:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Texto editable en su sitio (modo «Editar página») */
+.jm-editable {
+  cursor: text;
+  border-radius: 10px;
+  outline: 1.5px dashed transparent;
+  outline-offset: 6px;
+  transition: outline-color 0.3s;
+}
+.jm-editando .jm-editable {
+  outline-color: rgba(255, 255, 255, 0.14);
+}
+.jm-editando .jm-editable:hover {
+  outline-color: var(--jm-acento);
+}
+.jm-editable-vacio {
+  opacity: 0.45;
+  font-style: italic;
+}
+.jm-en-linea {
+  display: block;
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.35);
+  outline: 2px solid var(--jm-acento);
+  outline-offset: 6px;
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  text-transform: inherit;
+}
+[data-tema="claro"] .jm-en-linea {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+/* Sección resaltada en el editor (al pasar por su fila o al abrirla) */
+.jm-seccion-editada {
+  outline: 2px solid transparent;
+  outline-offset: -6px;
+  border-radius: 40px;
+  transition: outline-color 0.4s;
+}
+.jm-editando .jm-seccion-editada:hover,
+.jm-seccion-editada[data-resaltada] {
+  outline-color: rgba(229, 9, 20, 0.45);
+}
+.jm-seccion-oculta {
+  opacity: 0.35;
+  filter: grayscale(1);
+}
+}
+
+
+/* Editor visual de artículos: el texto se ve como en el blog */
+.jm-documento {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--jm-suave);
+  caret-color: var(--jm-acento);
+}
+.jm-documento > * + * {
+  margin-top: 1.1em;
+}
+.jm-documento h2 {
+  margin-top: 1.8em;
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--jm-texto);
+}
+.jm-documento h3 {
+  margin-top: 1.5em;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--jm-texto);
+}
+.jm-documento strong,
+.jm-documento b {
+  font-weight: 700;
+  color: var(--jm-texto);
+}
+.jm-documento a {
+  font-weight: 600;
+  color: var(--jm-acento);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.jm-documento ul,
+.jm-documento ol {
+  padding-left: 1.5rem;
+}
+.jm-documento ul {
+  list-style: disc;
+}
+.jm-documento ol {
+  list-style: decimal;
+}
+.jm-documento li::marker {
+  color: var(--jm-acento);
+}
+.jm-documento blockquote {
+  border-left: 2px solid var(--jm-acento);
+  padding-left: 1.4rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--jm-texto);
+}
+.jm-documento hr {
+  margin: 2.2em 0;
+  border: 0;
+  border-top: 1px solid var(--jm-borde);
+}
+.jm-documento figure {
+  position: relative;
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  border-radius: 22px;
+  border: 1px solid var(--jm-borde);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0.6rem;
+  user-select: none;
+}
+.jm-documento figure img {
+  display: block;
+  width: 100%;
+  max-height: 26rem;
+  border-radius: 16px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.04);
+  min-height: 6rem;
+}
+.jm-documento figure input {
+  display: block;
+  width: 100%;
+  margin-top: 0.45rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.45rem 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--jm-texto);
+  outline: none;
+  user-select: text;
+}
+.jm-documento figure input:focus {
+  box-shadow: inset 0 0 0 1.5px var(--jm-acento);
+}
+.jm-documento figure input[data-campo="alt"] {
+  font-size: 0.78rem;
+  color: var(--jm-suave);
+}
+.jm-doc-video {
+  position: relative;
+}
+.jm-doc-video span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+}
+.jm-doc-controles {
+  position: absolute;
+  right: 1.1rem;
+  top: 1.1rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.jm-documento figure:hover .jm-doc-controles,
+.jm-documento figure:focus-within .jm-doc-controles {
+  opacity: 1;
+}
+@media (hover: none) {
+  .jm-doc-controles {
+    opacity: 1;
+  }
+}
+.jm-doc-controles button {
+  min-width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.72);
+  padding: 0 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  backdrop-filter: blur(8px);
+}
+.jm-doc-controles button:hover {
+  background: var(--jm-acento);
+}

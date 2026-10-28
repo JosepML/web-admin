@@ -1,0 +1,9 @@
+{
+  "name": "supabase-local",
+  "private": true,
+  "type": "module",
+  "description": "Imitación mínima de Supabase para probar la web en el contenedor de Claude (sin acceso a supabase.co). Nunca en producción.",
+  "dependencies": {
+    "pg": "^8.13.0"
+  }
+}

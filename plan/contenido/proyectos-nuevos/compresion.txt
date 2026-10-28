@@ -1,0 +1,31 @@
+slug|original|final|duracion|peso original|peso final|CRF
+ep-color-adrian-munoz|adrian trailer color/Trailer_Color_AdrianMuñoz_V2.mp4|trailer-color-adrianmunoz-v2.mp4|61.1s|905MB|72MB|crf18
+atavicas-trailer-obra-de-teatro|ATAVICAS/ATAVICAS2026_NEIRAYSANTAMARIA_VIDEORESUMEN_V2.mp4|atavicas2026-neiraysantamaria-videoresumen-v2.mp4|100.8s|1288MB|89MB|crf18
+ais-10-anos|ais/ESCUELA_AIS_VIDEORESUMEN_V1.mp4|escuela-ais-videoresumen-v1.mp4|121.5s|1827MB|155MB|crf18
+albir-confort-real-estate|ALBIR CONFORT/VIDEO VILLA D'OR/VIDEO_VILLA_DOR_V1.mp4|video-villa-dor-v1.mp4|190.8s|762MB|143MB|crf18
+el-xato-evento-boda|EL XATO/VIDEORESUMEN_EVENTO_XATO_V2.mp4|videoresumen-evento-xato-v2.mp4|132.3s|1930MB|153MB|crf18
+englobe-evento-redes|ENGLOBE/ENGLOBE_V4.mp4|englobe-v4.mp4|70.7s|152MB|107MB|crf18
+evento-grupo-lon-el-langui|LANGUI LON/ENCUENTROS_LON_LANGUI_V1.mp4|encuentros-lon-langui-v1.mp4|95.2s|191MB|105MB|crf18
+locos-de-atar-ultimo-concierto|LOCOS DE ATAR - CONCIERTO 2025/VIDEORESUMEN_CONCIERTO_LDA_V1.mp4|videoresumen-concierto-lda-v1.mp4|177.3s|2644MB|307MB|crf18
+lavanderia-grupo-lon|LON/Reel1_LON_V2.mp4|reel1-lon-v2.mp4|58.7s|104MB|66MB|crf18
+lavanderia-grupo-lon|LON/Reel4_LON_V2.mp4|reel4-lon-v2.mp4|54.4s|95MB|59MB|crf18
+louk-the-grill|LOUK/REEL_LOUK_V1.mp4|reel-louk-v1.mp4|42.0s|81MB|63MB|crf18
+eventos-deportivos|SHIMANO SUPERCUP MASSI LA NUCIA/DILLUNS/AFTERMOVIE_SUPERCUPMASSI_LANUCIA_HORIZONTAL_V1.mp4|aftermovie-supercupmassi-lanucia-horizontal-v1.mp4|85.8s|1237MB|142MB|crf18
+eventos-deportivos|SHIMANO SUPERCUP MASSI LA NUCIA/DIUMENGE/COMPACTAT_SUPERCUP_LANUCIA_TV_APunt.mp4|compactat-supercup-lanucia-tv-apunt.mp4|178.2s|2690MB|301MB|crf18
+diferens-encuentro-2025|evento diferens/DIFERENS_2025_v1.mp4|diferens-2025-v1.mp4|191.7s|2825MB|231MB|crf18
+flama-aftermovie|flama/AFTERMOVIE_FLAMA_2026_V03.mp4|aftermovie-flama-2026-v03.mp4|148.6s|2221MB|255MB|crf18
+flama-la-nucia-video-oficial|flama/FLAMA_LANUCIA_V3.mp4|flama-lanucia-v3.mp4|183.6s|366MB|291MB|crf18
+flama-benissa-video-oficial|flama/VIDEORESUMEN_FLAMA_BENISSA_V3.mp4|videoresumen-flama-benissa-v3.mp4|79.9s|1175MB|134MB|crf18
+forecourttech-2025|forecourttech 2025/FORECOURTTECH_2025_V3_WITHLOGO.mp4|forecourttech-2025-v3-withlogo.mp4|162.9s|2387MB|170MB|crf18
+la-vibra-video-oficial|la vibra/Video_Oficial_LaVibra_V3.mp4|video-oficial-lavibra-v3.mp4|103.2s|299MB|148MB|crf18
+madison-video-oficial|madison/Madison_Videoresumen_V3.mp4|madison-videoresumen-v3.mp4|127.2s|381MB|205MB|crf18
+otra-movida-video-oficial|otra movida/OtraMovida_Videoresumen_V4_MASTERIZADA.mp4|otramovida-videoresumen-v4-masterizada.mp4|149.0s|303MB|205MB|crf18
+consell-valencia-joventut-charla|rrss consell valencia de la joventut/VIDEORESUM_CONSELL_HORITZONTAL_V2.mp4|videoresum-consell-horitzontal-v2.mp4|109.8s|1661MB|77MB|crf18
+formacion-mario-bravo|video promocional formacion mario bravo/FORMACIÓN_MARIO_BRAVO.mp4|formacion-mario-bravo.mp4|92.4s|1360MB|63MB|crf18
+zorom-ia|visuales ia/SPOT_PROMOTORA_V4.mp4|spot-promotora-v4.mp4|91.8s|1369MB|121MB|crf18
+flama-contenido-cinematografico-ia|visuales ia/VIDEO FLAMA PANTALLAS_V5.mp4|video-flama-pantallas-v5.mp4|61.9s|123MB|104MB|crf18
+aguita-de-coco-visuales|visuales ia/aguita de coco/A1-3x2-1080.mp4|a1-3x2-1080.mp4|32.0s|215MB|56MB|crf18
+aguita-de-coco-visuales|visuales ia/aguita de coco/A2-3x2-1080.mp4|a2-3x2-1080.mp4|32.0s|182MB|34MB|crf18
+aguita-de-coco-visuales|visuales ia/aguita de coco/A3-3x2-1080.mp4|a3-3x2-1080.mp4|32.0s|167MB|30MB|crf18
+aguita-de-coco-visuales|visuales ia/aguita de coco/A4-3x2-1080-30s.mp4|a4-3x2-1080-30s.mp4|30.0s|57MB|12MB|crf18
+TOTAL final: 3.90 GB
