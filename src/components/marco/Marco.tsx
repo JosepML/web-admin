@@ -140,9 +140,14 @@ function Menu({ nombre }: { nombre: string }) {
             compacto ? "py-1.5 pl-5 pr-1.5" : "py-2.5 pl-6 pr-2.5"
           }`}
         >
-          <Link href={RUTAS.inicio} className="text-[15px] font-extrabold tracking-tight">
+          <Link href={RUTAS.inicio} aria-label={nombreCorto(nombre)} className="flex items-center gap-3 text-[14px] font-semibold tracking-[0.01em]">
+            <span
+              aria-hidden
+              className="relative grid h-[34px] w-[34px] place-items-center rounded-full border-[1.5px] border-[var(--jm-texto)]/55 font-[family-name:var(--font-display-face),'Instrument_Serif',serif] text-[17px] italic font-normal tracking-normal"
+            >
+              JM
+            </span>
             {nombreCorto(nombre)}
-            <span className="text-[var(--jm-acento)]">.</span>
           </Link>
           <div className="hidden items-center gap-1 md:flex">
             {ENLACES.map((e) => (
