@@ -17,8 +17,9 @@ export function FormularioEntrar({ volver }: { volver: string }) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.8, ease: CURVA }}
     >
-      <Link href="/" className="text-[15px] font-extrabold tracking-tight">
-        Josep Mira<span className="text-[var(--jm-acento)]">.</span>
+      <Link href="/" className="flex items-center gap-3 text-[14px] font-semibold tracking-[0.01em]">
+        <span aria-hidden className="grid h-[30px] w-[30px] place-items-center rounded-full border-[1.5px] border-[var(--jm-texto)]/55 font-[family-name:var(--font-display-face),'Instrument_Serif',serif] text-[15px] italic font-normal tracking-normal">JM</span>
+        Josep Mira
       </Link>
       <h1 className="mt-6 text-3xl font-extrabold tracking-[-0.04em]">
         Hola de nuevo, <span className="jm-serif jm-degradado-acento">Josep</span>

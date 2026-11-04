@@ -34,8 +34,9 @@ export function BarraLateral({ mensajesNuevos = 0 }: { mensajesNuevos?: number }
 
   const contenido = (
     <>
-      <Link href="/admin" className="block px-3 text-[15px] font-extrabold tracking-tight">
-        Josep Mira<span className="text-[var(--jm-acento)]">.</span>
+      <Link href="/admin" className="flex items-center gap-3 px-3 text-[14px] font-semibold tracking-[0.01em]">
+        <span aria-hidden className="grid h-[30px] w-[30px] place-items-center rounded-full border-[1.5px] border-[var(--jm-texto)]/55 font-[family-name:var(--font-display-face),'Instrument_Serif',serif] text-[15px] italic font-normal tracking-normal">JM</span>
+        Josep Mira
         <span className="ml-2 align-middle text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--jm-tenue)]">Panel</span>
       </Link>
       <nav className="mt-8 flex flex-col gap-0.5" aria-label="Panel">
@@ -91,8 +92,9 @@ export function BarraLateral({ mensajesNuevos = 0 }: { mensajesNuevos?: number }
       {/* Móvil: barra arriba y menú desplegable */}
       <div className="fixed inset-x-3 top-3 z-50 lg:hidden">
         <div className="cristal cristal-fuerte flex items-center justify-between rounded-full py-2 pl-5 pr-2">
-          <Link href="/admin" className="text-[15px] font-extrabold tracking-tight">
-            Josep Mira<span className="text-[var(--jm-acento)]">.</span>
+          <Link href="/admin" className="flex items-center gap-3 text-[14px] font-semibold tracking-[0.01em]">
+        <span aria-hidden className="grid h-[30px] w-[30px] place-items-center rounded-full border-[1.5px] border-[var(--jm-texto)]/55 font-[family-name:var(--font-display-face),'Instrument_Serif',serif] text-[15px] italic font-normal tracking-normal">JM</span>
+        Josep Mira
           </Link>
           <button type="button" className="boton-icono" onClick={() => setAbierta((v) => !v)} aria-label="Menú del panel" aria-expanded={abierta}>
             <Icono nombre={abierta ? "cerrar" : "menu"} />
