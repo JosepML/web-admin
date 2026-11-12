@@ -3,6 +3,7 @@
 // un límite de tamaño muy por debajo de un vídeo.
 
 import { clienteNavegador } from "@/lib/supabase/navegador";
+import { comprimirImagen } from "./comprimir";
 import { registrarMedio, type MedioBiblioteca } from "./medios";
 
 /** Lo que admite el bucket (plan/esquema.md, «Seguridad»): imágenes, mp4/webm y pdf, hasta 50 MB */
@@ -46,18 +47,26 @@ function medidas(archivo: File): Promise<{ ancho: number | null; alto: number | 
 }
 
 /** Sube un archivo y lo deja en la biblioteca. Lanza un Error con un mensaje para Josep si algo falla. */
-export async function subirArchivo(archivo: File, foco: { x: number; y: number } | null = null): Promise<MedioBiblioteca> {
+/** Las fotos JPG y PNG se reducen antes de subir (ver comprimir.ts). `original: true` las sube tal cual (el recorte ya sale reducido). */
+export async function subirArchivo(
+  archivo: File,
+  foco: { x: number; y: number } | null = null,
+  opciones: { original?: boolean } = {},
+): Promise<MedioBiblioteca> {
   if (!ACEPTA.split(",").includes(archivo.type)) throw new Error(`«${archivo.name}» no es una imagen, un vídeo mp4/webm ni un pdf.`);
   if (archivo.size > MAXIMO) throw new Error(`«${archivo.name}» pesa ${(archivo.size / 1048576).toFixed(0)} MB; el máximo es 50 MB.`);
+  const titulo = archivo.name.replace(/\.[^.]+$/, "");
+  const original = archivo;
+  if (!opciones.original) archivo = (await comprimirImagen(original)).archivo;
   const ahora = new Date();
   const ruta = `subidas/${ahora.getFullYear()}/${String(ahora.getMonth() + 1).padStart(2, "0")}/${crypto.randomUUID().slice(0, 8)}-${nombreLimpio(archivo.name)}`;
   const [{ error }, m] = await Promise.all([
     clienteNavegador().storage.from("medios").upload(ruta, archivo, { contentType: archivo.type, cacheControl: "31536000" }),
     medidas(archivo),
   ]);
-  if (error) throw new Error(/row-level|unauthorized|jwt/i.test(error.message) ? "Tu sesión ha caducado: vuelve a entrar para subir archivos." : `No se pudo subir «${archivo.name}»: ${error.message}`);
+  if (error) throw new Error(/row-level|unauthorized|jwt/i.test(error.message) ? "Tu sesión ha caducado: vuelve a entrar para subir archivos." : `No se pudo subir «${original.name}»: ${error.message}`);
   const tipo = archivo.type.startsWith("image/") ? "imagen" : archivo.type.startsWith("video/") ? "video" : "documento";
-  const r = await registrarMedio({ ruta, tipo, mime: archivo.type, bytes: archivo.size, ...m, titulo: archivo.name.replace(/\.[^.]+$/, ""), foco });
+  const r = await registrarMedio({ ruta, tipo, mime: archivo.type, bytes: archivo.size, ...m, titulo, foco });
   if (!r.ok) throw new Error(r.error);
   return r.datos;
 }
