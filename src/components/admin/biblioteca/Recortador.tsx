@@ -111,11 +111,11 @@ export function Recortador({ medio, alTerminar, alCancelar }: { medio: MedioBibl
       ctx.drawImage(mapa, sx, sy, sw, sh, 0, 0, sw, sh);
       // PNG y WebP se quedan en su formato; lo demás, JPEG a calidad muy alta
       const tipo = medio.mime === "image/png" || medio.mime === "image/webp" ? medio.mime : "image/jpeg";
-      const blob = await new Promise<Blob | null>((res) => lienzo.toBlob(res, tipo, 0.95));
+      const blob = await new Promise<Blob | null>((res) => lienzo.toBlob(res, tipo, 0.9));
       if (!blob) throw new Error("lienzo");
       const base = (medio.titulo || "imagen").replace(/\.[^.]+$/, "");
       const ext = tipo === "image/png" ? "png" : tipo === "image/webp" ? "webp" : "jpg";
-      const nuevo = await subirArchivo(new File([blob], `${base}-recorte.${ext}`, { type: tipo }));
+      const nuevo = await subirArchivo(new File([blob], `${base}-recorte.${ext}`, { type: tipo }), null, { original: true });
       const titulo = `${base} (recorte)`;
       await cambiarMedio(nuevo.id, { titulo, texto_alternativo: medio.alt });
       avisar("Recorte guardado como imagen nueva");

@@ -11,6 +11,7 @@ import { img } from "@/components/comun/imagen";
 import { Icono } from "@/components/Iconos";
 import { borrarCarpeta, borrarMedio, cambiarMedio, crearCarpeta, moverMedios, renombrarCarpeta, type Carpeta, type MedioBiblioteca, type Uso } from "@/lib/admin/medios";
 import { ACEPTA } from "@/lib/admin/subir";
+import { InterruptorOriginal } from "./InterruptorOriginal";
 import { CURVA } from "@/styles/movimiento";
 import { Miniatura, ProveedorMedios, useSoltarArchivos } from "../campos/medios";
 import { aSlug } from "../campos/tipos";
@@ -166,6 +167,7 @@ function Contenido({ medios: iniciales, usos, carpetas: carpetasIniciales }: { m
         />
       </div>
       <p className="mt-2 text-xs text-[var(--jm-tenue)]">También puedes soltar fotos, vídeos mp4 o pdf en cualquier parte de esta página. Hasta 50 MB por archivo.</p>
+      <InterruptorOriginal />
 
       {(subiendo > 0 || error) && (
         <div className={`mt-4 flex items-center justify-between gap-3 rounded-[18px] px-4 py-3 text-sm ${error ? "bg-[#ff453a]/15 text-[#ff8a80]" : "bg-white/[0.06] text-[var(--jm-suave)]"}`}>
