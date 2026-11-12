@@ -57,7 +57,14 @@ export async function subirArchivo(
   if (archivo.size > MAXIMO) throw new Error(`«${archivo.name}» pesa ${(archivo.size / 1048576).toFixed(0)} MB; el máximo es 50 MB.`);
   const titulo = archivo.name.replace(/\.[^.]+$/, "");
   const original = archivo;
-  if (!opciones.original) archivo = (await comprimirImagen(original)).archivo;
+  if (!opciones.original) {
+    // Red de seguridad: si la compresión falla por lo que sea, se sube el original como siempre
+    try {
+      archivo = (await comprimirImagen(original)).archivo;
+    } catch {
+      archivo = original;
+    }
+  }
   const ahora = new Date();
   const ruta = `subidas/${ahora.getFullYear()}/${String(ahora.getMonth() + 1).padStart(2, "0")}/${crypto.randomUUID().slice(0, 8)}-${nombreLimpio(archivo.name)}`;
   const [{ error }, m] = await Promise.all([
